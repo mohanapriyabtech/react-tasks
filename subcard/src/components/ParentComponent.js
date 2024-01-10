@@ -7,7 +7,7 @@ const ParentComponent = () => {
   const [inputValues, setInputValues] = useState(['', '', '', '']);
 
   // Connect to the socket server
-  const socket = io(`http://192.168.29.78:4005/?id=656f0cdd2285517eeeefbad7`);
+  const socket = io(process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     // ComponentDidMount: Connect to the socket server

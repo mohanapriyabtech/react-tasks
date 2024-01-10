@@ -4,43 +4,43 @@ import io from 'socket.io-client';
 const ChildComponent = () => {
   const [childInputValues,  setChildInputValues] = useState({});
 
-  // const socket = io(`http://192.168.29.78:4005/?id=656f0cdd2285517eeeefbad7`);
+  const socket = io(process.env.REACT_APP_API_URL);
 
-  // useEffect(() => {
-  //   // ComponentDidMount: Connect to the socket server
-  //   socket.on('connect', () => {
-  //     console.log('Socket connected');
-  //   });
+  useEffect(() => {
+    // ComponentDidMount: Connect to the socket server
+    socket.on('connect', () => {
+      console.log('Socket connected');
+    });
 
-  //   // Handle connection errors
-  //   socket.on('connect_error', (error) => {
-  //     console.error('Socket connection error:', error);
-  //   });
+    // Handle connection errors
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+    });
 
-  //   // Handle disconnection
-  //   socket.on('disconnect', (reason) => {
-  //     console.log('Socket disconnected:', reason);
-  //   });
+    // Handle disconnection
+    socket.on('disconnect', (reason) => {
+      console.log('Socket disconnected:', reason);
+    });
 
-  //   // ComponentWillUnmount: Disconnect when the component is unmounted
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []); 
+    // ComponentWillUnmount: Disconnect when the component is unmounted
+    return () => {
+      socket.disconnect();
+    };
+  }, []); 
 
-  // useEffect(() => {
-  //   // Listen for the event to update childInputValues
-  //   socket.on('updateInputValues', (data) => {
-  //     console.log(data,"data")
-  //     setChildInputValues(data);
-  //   });
-  //   console.log(childInputValues,"childInputValues")
+  useEffect(() => {
+    // Listen for the event to update childInputValues
+    socket.on('updateInputValues', (data) => {
+      console.log(data,"data")
+      setChildInputValues(data);
+    });
+    console.log(childInputValues,"childInputValues")
 
-  //   // Clean up the socket listener when the component unmounts
-  //   return () => {
-  //     socket.off('updateInputValues');
-  //   };
-  // }, [socket]);
+    // Clean up the socket listener when the component unmounts
+    return () => {
+      socket.off('updateInputValues');
+    };
+  }, [socket]);
 
   return (
     <div style={{ marginLeft: '20px' }}>
