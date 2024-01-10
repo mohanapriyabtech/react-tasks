@@ -1,0 +1,85 @@
+/* App.css */
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 150vh;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f0f0f0; /* Set a light background color */
+}
+
+.messages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.message-container {
+  display: flex;
+  justify-content: flex-end; /* Align messages to the right side */
+  margin: 5px 0;
+}
+
+.user-message {
+  background-color: #5cb85c; /* Green for user messages */
+  color: #fff; /* White text for user messages */
+  border-radius: 8px;
+  padding: 10px;
+  max-width: 50%; /* Set a maximum width for the user message box */
+  text-align: left; /* Align text to the left within the box */
+}
+
+.bot-message {
+  background-color: #4e8cff; /* Blue for bot messages */
+  color: #fff; /* White text for bot messages */
+  border-radius: 8px;
+  padding: 10px;
+  max-width: 50%; /* Set a maximum width for the bot message box */
+  text-align: left; /* Align text to the left within the box */
+  margin-left: calc(50% - 50px); /* Move the left border to the right by 50% */
+}
+
+.input-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #fff; /* White background for input box */
+  border-top: 1px solid #ddd; /* Add a border between chat and input box */
+}
+
+.message-input {
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 10px;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #ccc; /* Add a border to the input */
+  border-radius: 5px;
+}
+
+.send-button {
+  cursor: pointer;
+  height: 40px;
+  margin-bottom: 20px;
+  background-color: #007bff; /* Blue for send button */
+  color: #fff; /* White text for send button */
+  border: none;
+  border-radius: 5px;
+  padding: 0 15px;
+}
+
+.send-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Message hover effect */
+.message:hover {
+  background-color: #ddd; /* Light gray on hover for messages */
+}
