@@ -8,61 +8,60 @@ import ConvertText from './ConvertText';
 const ChatBot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = async (e) => {
+    e.preventDefault(); // Prevent form submission
+
     if (input.trim() === '') return;
 
-    // Display user's message
     const userMessage = { text: input, sender: 'user' };
 
+    setLoading(true);
+
     try {
-      // Replace this URL with the actual endpoint of your chatbot API
-      const response = await axios.post('http://localhost:5000/chatbot', {
+      const response = await axios.post('http://localhost:5000/api/v1/user/chatbot', {
         prompt: input,
       });
 
-      // Assume the API response contains the bot's reply
-      const botReply = response.data.botReply;
-
-      // Display bot's reply using ConvertText component
+      const botReply = response.data.data;
       const botMessage = { text: <ConvertText text={botReply} />, sender: 'bot' };
 
-      // Combine user and bot messages into a single array
       setMessages((prevMessages) => [...prevMessages, userMessage, botMessage]);
     } catch (error) {
       console.error('Error fetching bot reply:', error);
+    } finally {
+      setLoading(false);
     }
 
-    setInput(''); // Reset the input after sending the user's message if needed
+    setInput('');
   };
 
   return (
     <div className="chat-container">
       <ul className="messages">
-        {messages.map((message, index) => (
-          <li
-            key={index}
-            className={`message ${message.sender}`}
-            style={{
-              marginLeft: message.sender === 'user' ? '0' : '50%',
-              transform: message.sender === 'user' ? 'translateX(0)' : 'translateX(50%)',
-            }}
-            
-          >
-            <span className="sender">{message.sender === 'user' ? '' : ''}</span>
-            {message.sender === 'bot' ? (
-              message.text
-            ) : (
-              message.text
-            )}
-          </li>
-        ))}
+        {messages ? (
+          messages.map((message, index) => (
+            <li
+              key={index}
+              className={`message ${message.sender}`}
+              style={{
+                marginLeft: message.sender === 'user' ? '0' : '50%',
+              }}
+            >
+              <span className="sender">{message.sender === 'user' ? '' : ''}</span>
+              {message.text}
+            </li>
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
       </ul>
-      <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }}>
+      <form onSubmit={handleSendMessage}>
         <div className="input-box">
           <input
             type="text"
@@ -71,11 +70,12 @@ const ChatBot = () => {
             placeholder="Type your message"
             className="message-input"
           />
-          <button onClick={handleSendMessage} className="send-button">
+          <button type="submit" className="send-button">
             Send
           </button>
         </div>
       </form>
+      {loading && <p>Loading...</p>}
     </div>
   );
 };

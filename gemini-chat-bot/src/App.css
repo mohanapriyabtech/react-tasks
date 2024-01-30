@@ -3,10 +3,12 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  width: 150vh;
+  width: 100vh;
   height: 100vh;
   overflow: hidden;
   background-color: #f0f0f0; /* Set a light background color */
+  margin-left: 100px;
+
 }
 
 .messages {
@@ -46,12 +48,14 @@
   bottom: 0;
   left: 0;
   right: 0;
+  width: 800px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
   background-color: #fff; /* White background for input box */
   border-top: 1px solid #ddd; /* Add a border between chat and input box */
+  margin-left: 100px;
 }
 
 .message-input {
@@ -60,6 +64,7 @@
   margin-right: 10px;
   height: 40px;
   padding: 8px;
+  width: 50px;
   border: 1px solid #ccc; /* Add a border to the input */
   border-radius: 5px;
 }
